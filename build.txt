@@ -1,0 +1,3 @@
+displayName = Dayrise Mod
+author = energykid
+version = 0.1

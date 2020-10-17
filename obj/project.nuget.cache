@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dViHdn/uGCfcOtPLSz8muwjmyc4qeAUh2wCrGA+CibDNrf+ggiEXFnJ4vm10N4afp0q+p8a7VyAJZ03mkrnIHg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Ben Reasoner\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\Dayrise\\Dayrise.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ben Reasoner\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

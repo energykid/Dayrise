@@ -41,7 +41,7 @@ namespace Dayrise.Items.Weapons.Visceral
             //player.QuickSpawnItem(mod.ItemType("DarklightEssence"), Main.rand.Next(30, 43));
             //player.QuickSpawnItem(mod.ItemType("VisceralHeart"));
             int numOfWeapons = 1;
-            int weaponPoolCount = 6;
+            int weaponPoolCount = 7;
             int[] weaponLoot = new int[numOfWeapons];
             for (int n = 0; n < numOfWeapons; n++)
             {

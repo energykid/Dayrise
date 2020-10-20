@@ -280,7 +280,8 @@ namespace Dayrise.NPCs.Bosses
 		}
 
         public override void BossLoot(ref string name, ref int potionType)
-        {
+		{
+			DayriseWorld.downedFourEyes = true;
 			if (Main.expertMode)
             {
 				Item.NewItem(npc.getRect(), mod.ItemType("FourEyesBag"));
@@ -288,7 +289,7 @@ namespace Dayrise.NPCs.Bosses
 			else
             {
 				int numOfWeapons = 1;
-				int weaponPoolCount = 6;
+				int weaponPoolCount = 7;
 				int[] weaponLoot = new int[numOfWeapons];
 				for (int n = 0; n < numOfWeapons; n++)
 				{

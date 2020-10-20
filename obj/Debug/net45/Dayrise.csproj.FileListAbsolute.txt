@@ -1,0 +1,4 @@
+C:\Users\Ben Reasoner\Documents\My Games\Terraria\ModLoader\Mod Sources\Dayrise\obj\Debug\net45\Dayrise.csprojAssemblyReference.cache
+C:\Users\Ben Reasoner\Documents\My Games\Terraria\ModLoader\Mod Sources\Dayrise\obj\Debug\net45\Dayrise.AssemblyInfoInputs.cache
+C:\Users\Ben Reasoner\Documents\My Games\Terraria\ModLoader\Mod Sources\Dayrise\obj\Debug\net45\Dayrise.AssemblyInfo.cs
+C:\Users\Ben Reasoner\Documents\My Games\Terraria\ModLoader\Mod Sources\Dayrise\obj\Debug\net45\Dayrise.csproj.CoreCompileInputs.cache

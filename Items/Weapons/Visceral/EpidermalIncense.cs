@@ -27,7 +27,26 @@ namespace Dayrise.Items.Weapons.Visceral
 			item.autoReuse = false;
 		}
 
-        public override bool CanUseItem(Player player)
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.Vertebrae, 5);
+			recipe.AddIngredient(ItemID.CrimtaneBar, 2);
+			recipe.AddIngredient(ItemID.Lens, 4);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+
+			ModRecipe recipe2 = new ModRecipe(mod);
+			recipe2.AddIngredient(ItemID.RottenChunk, 5);
+			recipe2.AddIngredient(ItemID.DemoniteBar, 2);
+			recipe2.AddIngredient(ItemID.Lens, 4);
+			recipe2.AddTile(TileID.Anvils);
+			recipe2.SetResult(this);
+			recipe2.AddRecipe();
+		}
+
+		public override bool CanUseItem(Player player)
         {
 			return NPC.CountNPCS(mod.NPCType("FourEyes")) >= 1 || Main.dayTime || !Main.bloodMoon ? false : true;
         }

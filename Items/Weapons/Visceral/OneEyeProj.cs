@@ -68,8 +68,8 @@ namespace Dayrise.Items.Weapons.Visceral
 
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
+            if (timer <= 40) Main.PlaySound(SoundID.Dig);
             timer = 41;
-            Main.PlaySound(SoundID.Dig);
             return false;
         }
 

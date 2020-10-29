@@ -28,6 +28,7 @@ namespace Dayrise.Items.Weapons.Visceral
             projectile.width = 10;
             projectile.height = 10;
             projectile.scale = 1;
+            projectile.magic = true;
             projectile.damage = 23;
 		}
 

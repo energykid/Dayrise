@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace Dayrise
@@ -12,6 +14,8 @@ namespace Dayrise
     {
         public static bool wonVsGuide = false;
         public static bool downedFourEyes = false;
+
+        public static bool suffocatingSun = false;
 
         public override TagCompound Save()
         {
@@ -31,6 +35,11 @@ namespace Dayrise
             downedFourEyes = downed.Contains("downedFourEyes");
         }
 
+        public override void PostUpdate()
+        {
+            if (!Main.dayTime) suffocatingSun = false;
+        }
+
         public override void NetSend(BinaryWriter writer)
         {
             BitsByte flags = new BitsByte();
@@ -38,12 +47,12 @@ namespace Dayrise
             flags[1] = downedFourEyes;
             writer.Write(flags);
         }
+
         public override void NetReceive(BinaryReader reader)
         {
             BitsByte flags = reader.ReadByte();
             wonVsGuide = flags[0];
             downedFourEyes = flags[1];
         }
-
     }
 }

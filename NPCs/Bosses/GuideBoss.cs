@@ -39,7 +39,7 @@ namespace Dayrise.NPCs.Bosses
 			animationType = -1;
 			npc.knockBackResist = 0f;
 			npc.scale = 1;
-			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/scholarly_training");
+			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/scholarly_spar");
 			npc.damage = 13;
 			npc.defense = 4;
 		}
@@ -160,7 +160,7 @@ namespace Dayrise.NPCs.Bosses
 							Main.PlaySound(SoundID.DoubleJump, npc.Center);
 							Main.PlaySound(SoundID.Item5, npc.Center);
 
-							int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter) * 9, npc.life < npc.lifeMax * 0.7f ? ProjectileID.JestersArrow : ProjectileID.WoodenArrowHostile, 9, 5f, player.whoAmI);
+							int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter) * 9, npc.life < npc.lifeMax * 0.7f ? ProjectileID.JestersArrow : ProjectileID.WoodenArrowHostile, 5, 5f, player.whoAmI);
 							Main.projectile[proj].friendly = false;
 							Main.projectile[proj].hostile = true;
 
@@ -193,7 +193,7 @@ namespace Dayrise.NPCs.Bosses
 						{
 							Main.PlaySound(SoundID.Item5, npc.Center);
 
-							int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter) * 9, npc.life < npc.lifeMax * 0.7f ? ProjectileID.FlamingArrow : ProjectileID.WoodenArrowHostile, 9, 5f, player.whoAmI);
+							int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter) * 9, npc.life < npc.lifeMax * 0.7f ? ProjectileID.FlamingArrow : ProjectileID.WoodenArrowHostile, 5, 5f, player.whoAmI);
 							Main.projectile[proj].friendly = false;
 							Main.projectile[proj].hostile = true;
 						}
@@ -224,7 +224,7 @@ namespace Dayrise.NPCs.Bosses
 
 							for (int i = -2; i <= 2; i++)
 							{
-								int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter).RotatedBy(MathHelper.ToRadians(35 * i)) * 9, ProjectileID.HellfireArrow, 11, 5f, player.whoAmI);
+								int proj = Projectile.NewProjectile(npc.Center, npc.DirectionTo(player.MountedCenter).RotatedBy(MathHelper.ToRadians(35 * i)) * 9, ProjectileID.HellfireArrow, 9, 5f, player.whoAmI);
 								Main.projectile[proj].friendly = false;
 								Main.projectile[proj].hostile = true;
 							}
@@ -310,6 +310,8 @@ namespace Dayrise.NPCs.Bosses
 			{
 				int npc2 = NPC.NewNPC((int)npc.Center.X, (int)npc.Center.Y, NPCID.Guide);
 				Main.npc[npc2].GivenName = npc.GivenName;
+
+				Main.NewText("<" + npc.FullName + "> You seem beat up. Go take a breather, I'm not going anywhere!");
 
 				npc.active = false;
 			}

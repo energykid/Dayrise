@@ -34,7 +34,7 @@ namespace Dayrise.Items.Weapons.Visceral
             projectile.penetrate = -1;
 		}
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        public override void Kill(int timeLeft)
         {
             for (int k = 0; k < 12; k++)
             {
@@ -47,7 +47,6 @@ namespace Dayrise.Items.Weapons.Visceral
                 }
             }
             Main.PlaySound(SoundID.Dig, projectile.Center);
-            return base.OnTileCollide(oldVelocity);
         }
 
         public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough)
@@ -60,6 +59,7 @@ namespace Dayrise.Items.Weapons.Visceral
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Bleeding, 240);
+            if (target.boss) projectile.Kill();
         }
 
         public override void AI()

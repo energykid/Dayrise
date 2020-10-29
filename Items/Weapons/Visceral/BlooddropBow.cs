@@ -21,7 +21,7 @@ namespace Dayrise.Items.Weapons.Visceral
             item.width = 44;
             item.height = 18;
             item.useTime = 22;
-            item.useAmmo = AmmoID.Dart;
+            item.useAmmo = AmmoID.Arrow;
             item.useAnimation = 22;
             item.useStyle = ItemUseStyleID.HoldingOut;
             item.noMelee = true;

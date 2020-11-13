@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Dayrise.Items.Emblems
 {
@@ -27,6 +28,7 @@ namespace Dayrise.Items.Emblems
         {
             player.meleeDamage *= 1.2f;
             player.meleeSpeed *= 1.15f;
+            player.GetModPlayer<MasterPlayer>().warrior = true;
         }
     }
     #endregion warrior
@@ -108,6 +110,7 @@ namespace Dayrise.Items.Emblems
         }
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
+            player.GetModPlayer<MasterPlayer>().summoner = true;
             player.magicDamage *= 1.2f;
             player.manaRegen *= (int)1.5;
             player.manaRegenBuff = true;
@@ -155,8 +158,44 @@ namespace Dayrise.Items.Emblems
 
             if (sorcerer && !target.friendly && !target.immortal && proj.magic)
             {
-                player.statLife += (int)(proj.damage * 0.01f);
-                player.HealEffect((int)(proj.damage * 0.01f));
+                 Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("NebulaHealingBolt"), 0, 0f, player.whoAmI, proj.damage * 0.01f);
+            }
+            if (summoner && !target.friendly && proj.minion)
+            {
+                target.AddBuff(mod.BuffType("ElectrifiedV2"), 180, true);
+            }
+        }
+    }
+    #endregion
+
+    #region global classses
+    public class MasterItem : GlobalItem
+    {
+        public override bool CanUseItem(Item item, Player player)
+        {
+             if (player.GetModPlayer<MasterPlayer>().warrior && item.melee && !item.noMelee && item.useStyle == ItemUseStyleID.SwingThrow)
+            {
+                Vector2 mouse = new Vector2(Main.mouseX, Main.mouseY) + Main.screenPosition;
+                Vector2 direction = mouse - player.Center;
+                direction.Normalize();
+                direction *= 90;
+                Projectile.NewProjectile(player.Center, Vector2.Zero, ModContent.ProjectileType<SolarSlash>(), 125, 0f, player.whoAmI, direction.X, direction.Y);
+            }
+            return base.CanUseItem(item,player);
+        }
+    }
+    public class MasterProj : GlobalProjectile
+    {
+        float alphaCounter = 0;
+        public override bool InstancePerEntity => true;
+        public override void PostDraw(Projectile projectile, SpriteBatch spriteBatch, Color lightColor)
+        {
+            Player player = Main.player[projectile.owner];
+            if (player.GetModPlayer<MasterPlayer>().summoner && projectile.minion)
+            {
+                alphaCounter += 0.04f;
+                float sineAdd = (float)Math.Sin(alphaCounter) + 3;
+			    Main.spriteBatch.Draw(mod.GetTexture("Effects/Masks/Extra_49"), (projectile.Center - Main.screenPosition), null, new Color((int)(7.5f * sineAdd), (int)(16.5f * sineAdd), (int)(18f * sineAdd), 0), 0f, new Vector2(50, 50), 0.25f * (sineAdd + 1), SpriteEffects.None, 0f);
             }
         }
     }

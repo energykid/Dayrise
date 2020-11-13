@@ -54,5 +54,16 @@ namespace Dayrise
             wonVsGuide = flags[0];
             downedFourEyes = flags[1];
         }
+        public static int EclipseChance() => 20;
+
+        public static bool StartSuffocatingSun()
+        {
+            if (NPC.downedGolemBoss)
+            {
+                suffocatingSun = true;
+                return true;
+            }
+            return false;
+        }
     }
 }

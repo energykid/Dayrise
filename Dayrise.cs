@@ -10,13 +10,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
-using Terraria.ModLoader;
 using System.IO;
 using Terraria.DataStructures;
 using Terraria.GameInput;
 using Terraria.UI;
 using Terraria.GameContent.UI;
-using System.Linq;
 using MonoMod.Utils;
 using static Mono.Cecil.Cil.OpCodes;
 using MonoMod.Cil;
@@ -33,6 +31,17 @@ namespace Dayrise
             {
                 backgroundColor = tileColor = new Color(125, 125, 200);
             }
+        }
+        public static void PremultiplyTexture(Texture2D texture)
+        {
+            Color[] buffer = new Color[texture.Width * texture.Height];
+            texture.GetData(buffer);
+            for (int i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = Color.FromNonPremultiplied(
+                        buffer[i].R, buffer[i].G, buffer[i].B, buffer[i].A);
+            }
+            texture.SetData(buffer);
         }
 
         public override void PostSetupContent()
@@ -55,8 +64,10 @@ namespace Dayrise
             }
 
             Main.spriteBatch.End();
-            Main.spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive);
+            Main.spriteBatch.Begin(SpriteSortMode.BackToFront, texture == ModContent.GetTexture("Dayrise/StrangledSun_Sun") ? BlendState.NonPremultiplied : BlendState.Additive);
             Main.spriteBatch.Draw(texture, new Vector2(x, y), new Rectangle(0, 0, texture.Width, texture.Height), Color.White, rotation, texture.Size() / 2, scale, SpriteEffects.None, 0);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.Additive);
             if (texture == ModContent.GetTexture("Dayrise/StrangledSun_Sun"))
             {
                 for (int i = 0; i <= Main.rand.Next(3, 6); i++)
@@ -86,6 +97,28 @@ namespace Dayrise
 
         public override void Load()
         {
+            IL.Terraria.Main.UpdateTime += il =>
+            {
+                var c = new ILCursor(il);
+
+                if (!c.TryGotoNext(i => i.MatchLdcI4(20)))
+                {
+                    return;
+                }
+
+                c.Index += 3;
+
+                c.Emit(Mono.Cecil.Cil.OpCodes.Call, typeof(DayriseWorld).GetMethod("StartSuffocatingSun"));
+
+                var label = c.DefineLabel();
+                c.Emit(Brtrue, label);
+
+                c.Index += 4;
+
+                c.MarkLabel(label);
+            };
+
+
             IL.Terraria.Main.DoDraw += il =>
             {
                 var c = new ILCursor(il);
@@ -117,9 +150,14 @@ namespace Dayrise
                     return;
                 }
                 c.Index++;
+                c.Emit(Pop);
+                c.Emit(Mono.Cecil.Cil.OpCodes.Call, typeof(DayriseWorld).GetMethod("EclipseChance"));
+                c.Index += 2;
 
                 c.MarkLabel(label2);
             };
+
+            PremultiplyTexture(ModContent.GetTexture("Dayrise/StrangledSun_Sun"));
 
             Filters.Scene["Dayrise:SuffocatingSun"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(-0.18f, -0.15f, 0.06f).UseOpacity(0.6f), EffectPriority.VeryHigh);
         }

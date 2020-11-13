@@ -10,19 +10,19 @@ using Terraria.Graphics.Shaders;
 using Terraria.GameContent.Achievements;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Dayrise.Items.Weapons.Phosphor
+namespace Dayrise.Items.Weapons.Misc
 {
-    public class Glowsaber : ModItem
+    public class ObsidianWarhammer : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Glowsaber");
-            Tooltip.SetDefault("Slashes with precision and style");
+            DisplayName.SetDefault("Obsidian Warhammer");
+            Tooltip.SetDefault("Swings in a 360-degree arc, crushing enemies");
         }
 
         public override void SetDefaults()
         {
-            item.damage = 16;
+            item.damage = 20;
             item.melee = true;
             item.width = 34;
             item.height = 34;
@@ -31,34 +31,32 @@ namespace Dayrise.Items.Weapons.Phosphor
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.knockBack = 4f;
             item.value = Item.buyPrice(0, 60, 0, 0);
-            item.rare = 2;
+            item.rare = 5;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
-            item.shoot = mod.ProjectileType("GlowsaberProj");
-            item.shootSpeed = 21f;
         }
 
-        public override Color? GetAlpha(Color lightColor)
+        public override void ModifyHitNPC(Player player, NPC target, ref int damage, ref float knockBack, ref bool crit)
         {
-            return new Color(255, 255, 255);
+            if (!target.boss)
+            {
+                target.velocity.X = 0;
+                if (target.noGravity || target.velocity.Y < 0) target.velocity.Y = 0;
+            }
         }
 
-        public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
+        public override void UseStyle(Player player)
         {
-            position.Y -= 10;
-            return true;
+            player.itemRotation = MathHelper.Lerp(-player.direction * MathHelper.ToRadians(0), -player.direction * MathHelper.ToRadians(200), (float)player.itemAnimation / ((float)item.useAnimation / 2f));
         }
-
-        public override void MeleeEffects(Player player, Rectangle hitbox)
+        public override void UseItemHitbox(Player player, ref Rectangle hitbox, ref bool noHitbox)
         {
-            Dust dust = Dust.NewDustDirect(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, mod.DustType("LightParticle"));
+            hitbox = new Rectangle((int)player.Center.X - 56, (int)player.Center.Y - 56, 112, 112);
         }
-
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DemoniteBar, 11);
-            recipe.AddIngredient(null, "Glowbulb", 18);
+            recipe.AddIngredient(ItemID.Obsidian, 32);
             recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();

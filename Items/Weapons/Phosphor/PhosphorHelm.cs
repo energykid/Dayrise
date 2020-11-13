@@ -9,6 +9,7 @@ using Terraria;
 using Dayrise;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static MonoMod.Cil.RuntimeILReferenceBag.FastDelegateInvokers;
 
 namespace Dayrise.Items.Weapons.Phosphor
 {
@@ -55,12 +56,12 @@ namespace Dayrise.Items.Weapons.Phosphor
 
 		public override void AddRecipes()
 		{
-			/*ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.SilverBar, 5);
-			recipe.AddIngredient(ItemID.IceBlock, 20);
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.DemoniteBar, 11);
+			recipe.AddIngredient(null, "Glowbulb", 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
-			recipe.AddRecipe();*/
+			recipe.AddRecipe();
 		}
 	}
 }

@@ -25,10 +25,6 @@ namespace Dayrise
         public bool frostbiteSetBonus = false;
         public bool phosphorSetBonus = false;
 
-        public bool phosphorDoubleJump = false;
-        public float phosphorGrav = 0;
-        public Vector2 phosphorJumpPos = Vector2.Zero;
-
         public bool chilledAmulet = false;
         public bool chilledAmuletVisual = false;
 
@@ -44,9 +40,7 @@ namespace Dayrise
             visceralHeart = false;
             visceralHeartVisual = false;
 
-            rangedVelocity = 1.0f; 
-            
-            if (!phosphorSetBonus) phosphorDoubleJump = false;
+            rangedVelocity = 1.0f;
 
             frostbiteSetBonus = false;
             phosphorSetBonus = false;

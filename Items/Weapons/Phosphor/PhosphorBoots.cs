@@ -39,9 +39,15 @@ namespace Dayrise.Items.Weapons.Phosphor
 		{
 			player.meleeCrit += 3;
 		}
+
 		public override void AddRecipes()
 		{
-
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.DemoniteBar, 10);
+			recipe.AddIngredient(null, "Glowbulb", 14);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
 		}
 	}
 }

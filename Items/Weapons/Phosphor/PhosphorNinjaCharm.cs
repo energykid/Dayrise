@@ -77,7 +77,7 @@ namespace Dayrise.Items.Weapons.Phosphor
 		{
 			ModRecipe recipe = new ModRecipe(mod);
 			recipe.AddIngredient(ItemID.DemoniteBar, 10);
-			recipe.AddIngredient(ItemID.GlowingMushroom, 20); //CHANGE TO GLOWBULBS
+			recipe.AddIngredient(null, "Glowbulb", 15);
 			recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

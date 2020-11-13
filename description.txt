@@ -1,1 +1,15 @@
-Dayrise Mod is a pretty cool mod, it does...this. Modify this file with a description of your mod.
+dayrise is an all-purpose content mod. we're trying to add interesting and fun content through all reaches of terraria, just like any other mod! placing a focus on visuals and the ability to look cool while you play, the mod currently adds:
+
+- XX bosses
+- XX+ items
+
+huge thanks to the devs:
+
+lead programmer; musician - energykid
+
+pixel artist - cloud
+pixel artist - Crowlarghost
+pixel artist and programmer - Pacnysam
+
+jr. programmer - John Snail
+jr. pixel artist - Doodle

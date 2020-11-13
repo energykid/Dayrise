@@ -42,5 +42,15 @@ namespace Dayrise.Items.Weapons.Phosphor
 			item.UseSound = SoundID.Item1;
 			item.autoReuse = false;
 		}
-    }
+
+		public override void AddRecipes()
+		{
+			ModRecipe recipe = new ModRecipe(mod);
+			recipe.AddIngredient(ItemID.DemoniteBar, 5);
+			recipe.AddIngredient(null, "Glowbulb", 7);
+			recipe.AddTile(TileID.Anvils);
+			recipe.SetResult(this);
+			recipe.AddRecipe();
+		}
+	}
 }

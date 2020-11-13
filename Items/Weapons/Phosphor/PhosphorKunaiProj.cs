@@ -10,6 +10,7 @@ namespace Dayrise.Items.Weapons.Phosphor
     public class PhosphorKunaiProj : ModProjectile
     {
         float started = 0;
+        float timer = 0;
 
         Vector2[] pos1 = new Vector2[10] { Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero, Vector2.Zero };
 

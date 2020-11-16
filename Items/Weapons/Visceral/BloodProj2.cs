@@ -22,7 +22,7 @@ namespace Dayrise.Items.Weapons.Visceral
         public override void SetDefaults()
 		{
             projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);
-
+            projectile.ranged = false;
             projectile.aiStyle = -1;
             projectile.tileCollide = true;
             projectile.width = 10;

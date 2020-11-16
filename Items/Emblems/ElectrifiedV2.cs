@@ -16,7 +16,8 @@ namespace Dayrise.Items.Emblems
 		{
 			npc.lifeRegen -= 30;
 
-			Dust.NewDust(npc.position, npc.width, npc.height, DustID.Electric);
+			Dust dust = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Electric);
+			dust.noGravity = true;
 		}
 	}
 }

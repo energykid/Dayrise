@@ -136,11 +136,6 @@ namespace Dayrise.Items.Emblems
          
         public override void OnHitNPC(Item item, NPC target, int damage, float knockback, bool crit)
         {
-            if (ranger && crit && !target.friendly && !target.immortal && item.ranged)
-            {
-                CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width / 2, player.height / 2), new Color(169, 248, 255, 100), "Ranged Crit Effect");
-            }
-
             if (sorcerer && !target.friendly && !target.immortal && item.magic)
             {
                 player.statLife += (int)(item.damage * 0.01f);
@@ -150,12 +145,7 @@ namespace Dayrise.Items.Emblems
 
         public override void OnHitNPCWithProj(Projectile proj, NPC target, int damage, float knockback, bool crit)
         {
-            if (ranger && crit && !target.friendly && !target.immortal && proj.ranged)
-            {
-                Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("Vortexplosion"), 125, 0f, player.whoAmI);
-                //CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width / 2, player.height / 2), new Color(169, 248, 255, 100), "Ranged Crit Effect");
-            }
-
+            //CombatText.NewText(new Rectangle((int)player.position.X, (int)player.position.Y, player.width / 2, player.height / 2), new Color(169, 248, 255, 100), "Ranged Crit Effect");
             if (sorcerer && !target.friendly && !target.immortal && proj.magic)
             {
                  Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("NebulaHealingBolt"), 0, 0f, player.whoAmI, proj.damage * 0.01f);
@@ -173,7 +163,7 @@ namespace Dayrise.Items.Emblems
     {
         public override bool CanUseItem(Item item, Player player)
         {
-             if (player.GetModPlayer<MasterPlayer>().warrior && item.melee && !item.noMelee && item.useStyle == ItemUseStyleID.SwingThrow)
+             if (player.GetModPlayer<MasterPlayer>().warrior && item.melee && !item.noMelee && item.useStyle == ItemUseStyleID.SwingThrow && !item.noUseGraphic)
             {
                 Vector2 mouse = new Vector2(Main.mouseX, Main.mouseY) + Main.screenPosition;
                 Vector2 direction = mouse - player.Center;
@@ -196,6 +186,16 @@ namespace Dayrise.Items.Emblems
                 alphaCounter += 0.04f;
                 float sineAdd = (float)Math.Sin(alphaCounter) + 3;
 			    Main.spriteBatch.Draw(mod.GetTexture("Effects/Masks/Extra_49"), (projectile.Center - Main.screenPosition), null, new Color((int)(7.5f * sineAdd), (int)(16.5f * sineAdd), (int)(18f * sineAdd), 0), 0f, new Vector2(50, 50), 0.25f * (sineAdd + 1), SpriteEffects.None, 0f);
+            }
+        }
+
+        public override void OnHitNPC(Projectile projectile, NPC target, int damage, float knockback, bool crit)
+        {
+            Player player = Main.player[projectile.owner];
+            if (projectile.ranged && crit && player.GetModPlayer<MasterPlayer>().ranger && !target.friendly && !target.immortal)
+            {
+                Main.PlaySound(SoundID.Item14, projectile.Center);
+                Projectile.NewProjectile(target.Center, Vector2.Zero, mod.ProjectileType("Vortexplosion"), 125, 0f, player.whoAmI);
             }
         }
     }

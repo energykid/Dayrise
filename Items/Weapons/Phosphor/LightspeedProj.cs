@@ -90,7 +90,7 @@ namespace Dayrise.Items.Weapons.Phosphor
             projectile.ai[1]++;
             if (hitNPC > 0 && Main.npc[hitNPC].active)
             {
-                projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.npc[hitNPC].Center) * 35, 0.10f);
+                projectile.velocity = Vector2.Lerp(projectile.velocity, projectile.DirectionTo(Main.npc[hitNPC].Center) * 35, 0.04f);
             }
             else if (projectile.ai[1] > 10)
             {

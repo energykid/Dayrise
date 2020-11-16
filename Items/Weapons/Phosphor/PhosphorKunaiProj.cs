@@ -25,6 +25,7 @@ namespace Dayrise.Items.Weapons.Phosphor
         {
             projectile.CloneDefaults(ProjectileID.WoodenArrowHostile);
 
+            projectile.ranged = false;
             projectile.penetrate = 4;
             projectile.aiStyle = -1;
             projectile.thrown = true;

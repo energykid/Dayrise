@@ -97,6 +97,9 @@ namespace Dayrise
 
         public override void Load()
         {
+            Ref<Effect> specialRef = new Ref<Effect>(GetEffect("Effects/Colour"));
+            GameShaders.Misc["Dayrise:Colour"] = new MiscShaderData(specialRef, "ModdersToolkitShaderPass");
+
             IL.Terraria.Main.UpdateTime += il =>
             {
                 var c = new ILCursor(il);

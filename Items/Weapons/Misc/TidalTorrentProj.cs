@@ -26,9 +26,10 @@ namespace Dayrise.Items.Weapons.Misc
             projectile.aiStyle = -1;
             projectile.tileCollide = true;
             projectile.width = 26;
+            projectile.ranged = false;
             projectile.height = 14;
             projectile.scale = 1;
-            projectile.magic = true;
+            projectile.melee = true;
             projectile.damage = 23;
 		}
 

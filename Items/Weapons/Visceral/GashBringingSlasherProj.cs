@@ -27,6 +27,7 @@ namespace Dayrise.Items.Weapons.Visceral
         {
             projectile.CloneDefaults(ProjectileID.WoodenArrowHostile);
 
+            projectile.ranged = false;
             projectile.penetrate = 4;
             projectile.aiStyle = -1;
             projectile.melee = true;

@@ -34,7 +34,7 @@ namespace Dayrise.NPCs.Bosses
 			npc.lifeMax = 2500;
 			npc.knockBackResist = 0f;
 			npc.scale = 1;
-			npc.boss = true; 
+			npc.boss = true;
 			music = mod.GetSoundSlot(SoundType.Music, "Sounds/Music/epidermis");
 			npc.dontTakeDamage = true;
 			npc.damage = 23;

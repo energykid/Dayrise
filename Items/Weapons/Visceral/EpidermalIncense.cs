@@ -6,13 +6,13 @@ namespace Dayrise.Items.Weapons.Visceral
 {
 	public class EpidermalIncense : ModItem
 	{
-		public override void SetStaticDefaults() 
+		public override void SetStaticDefaults()
 		{
 			DisplayName.SetDefault("Epidermal Incense");
 			Tooltip.SetDefault("Summons Four-Eyes during a Blood Moon on the surface");
 		}
 
-		public override void SetDefaults() 
+		public override void SetDefaults()
 		{
 			item.consumable = true;
 			item.width = 40;
@@ -47,15 +47,15 @@ namespace Dayrise.Items.Weapons.Visceral
 		}
 
 		public override bool CanUseItem(Player player)
-        {
+		{
 			return NPC.CountNPCS(mod.NPCType("FourEyes")) >= 1 || Main.dayTime || !Main.bloodMoon ? false : true;
-        }
+		}
 
-        public override bool UseItem(Player player)
-        {
+		public override bool UseItem(Player player)
+		{
 			NPC.NewNPC((int)player.Center.X, (int)player.Center.Y - Main.screenHeight / 2, mod.NPCType("FourEyes"));
 			Main.PlaySound(mod.GetLegacySoundSlot(SoundType.Custom, "Sounds/NPC/FourEyes_Roar"), player.Center);
 			return true;
-        }
-    }
+		}
+	}
 }

@@ -24,7 +24,7 @@ using MonoMod.RuntimeDetour;
 namespace Dayrise
 {
 	public class Dayrise : Mod
-	{
+    {
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
             if (DayriseWorld.suffocatingSun)
@@ -120,7 +120,6 @@ namespace Dayrise
 
                 c.MarkLabel(label);
             };
-
 
             IL.Terraria.Main.DoDraw += il =>
             {

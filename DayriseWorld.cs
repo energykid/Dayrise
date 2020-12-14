@@ -17,12 +17,14 @@ namespace Dayrise
 
         public static bool suffocatingSun = false;
 
+        public static float globalTimer = 0;
+
         public override TagCompound Save()
         {
             var downed = new List<string>();
             if (wonVsGuide) downed.Add("wonVsGuide");
-            if (downedFourEyes) downed.Add("downedFourEyes"); 
-            
+            if (downedFourEyes) downed.Add("downedFourEyes");
+
             return new TagCompound
             {
                 {"downed", downed}
@@ -38,6 +40,8 @@ namespace Dayrise
         public override void PostUpdate()
         {
             if (!Main.dayTime) suffocatingSun = false;
+
+            globalTimer++;
         }
 
         public override void NetSend(BinaryWriter writer)
@@ -60,6 +64,7 @@ namespace Dayrise
         {
             if (NPC.downedGolemBoss)
             {
+                Main.NewText("The Sun is suffocating...", new Color(48, 55, 80));
                 suffocatingSun = true;
                 return true;
             }

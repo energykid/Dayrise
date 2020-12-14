@@ -24,7 +24,6 @@ namespace Dayrise.NPCs.Misc
 		*/
         public override void SetDefaults()
 		{
-			npc.color = Color.GreenYellow;
 			npc.aiStyle = 1;
             npc.noTileCollide = false;
 			npc.width = 66;
@@ -39,7 +38,6 @@ namespace Dayrise.NPCs.Misc
 			npc.HitSound = SoundID.NPCHit1;
 			npc.DeathSound = SoundID.NPCDeath1;
         }
-
 		public override void AI()
         {
 			npc.scale = MathHelper.Lerp(npc.scale, MathHelper.Lerp(0.5f, 2.5f, (float)npc.life / (float)npc.lifeMax), 0.2f);
@@ -66,9 +64,30 @@ namespace Dayrise.NPCs.Misc
         {
             
         }
+		float alpha;
 		public override bool PreDraw(SpriteBatch spriteBatch, Color drawColor)
 		{
-			return true;
+			alpha += 0.05f;
+			SpriteEffects spriteEffects = SpriteEffects.None;
+			if (npc.spriteDirection == 1)
+			{
+				spriteEffects = SpriteEffects.FlipHorizontally;
+			}
+			 Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
+
+             Color shadeColor = drawColor;
+           Dayrise.PrismShader.Parameters["coloralpha"].SetValue(alpha);
+             Dayrise.PrismShader.CurrentTechnique.Passes[0].Apply();
+            Vector2 drawOrigin = new Vector2(Main.npcTexture[npc.type].Width * npc.scale / 2, Main.npcTexture[npc.type].Height * npc.scale / 2);
+            Vector2 drawPos = npc.Center - Main.screenPosition;
+            shadeColor.A = 150;
+			float extraDrawY = Main.NPCAddHeight(npc.whoAmI);
+			Vector2 origin = new Vector2(Main.npcTexture[npc.type].Width / 2, Main.npcTexture[npc.type].Height / Main.npcFrameCount[npc.type] / 2);
+            Main.spriteBatch.Draw(Main.npcTexture[npc.type], new Vector2(npc.position.X - Main.screenPosition.X + npc.width / 2 - Main.npcTexture[npc.type].Width * npc.scale / 2f + origin.X * npc.scale, npc.position.Y - Main.screenPosition.Y + npc.height - Main.npcTexture[npc.type].Height * npc.scale / Main.npcFrameCount[npc.type] + 4f + extraDrawY + origin.Y * npc.scale + npc.gfxOffY), npc.frame, npc.GetColor(drawColor), npc.rotation, origin, npc.scale, spriteEffects, 0f);
+            Main.spriteBatch.End();
+            Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.GameViewMatrix.TransformationMatrix);
+			return false;
 			/*
 			SpriteEffects spriteEffects = SpriteEffects.None;
 			if (npc.spriteDirection == 1)

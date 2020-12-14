@@ -25,6 +25,8 @@ namespace Dayrise
 {
 	public class Dayrise : Mod
 	{
+        internal static Dayrise instance;
+		public Dayrise() => instance = this;
         public override void ModifySunLightColor(ref Color tileColor, ref Color backgroundColor)
         {
             if (DayriseWorld.suffocatingSun)
@@ -95,8 +97,10 @@ namespace Dayrise
             }
         }
 
+        public static Effect PrismShader;
         public override void Load()
         {
+            PrismShader = instance.GetEffect("Effects/PrismShader");
             Ref<Effect> specialRef = new Ref<Effect>(GetEffect("Effects/Colour"));
             GameShaders.Misc["Dayrise:Colour"] = new MiscShaderData(specialRef, "ModdersToolkitShaderPass");
 
